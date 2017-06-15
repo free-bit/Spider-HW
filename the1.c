@@ -109,43 +109,7 @@ void apply_drd(char f[][row],int i, int j)/*Down-Right Diagonal*/
     f[i+1][j]='e';
     f[i][j]='e';
 }
-/*Undo*/
-void undo_uld(char f[][row],int i, int j)
-{
-    f[i-2][j]='e';
-    f[i-1][j]='s';
-    f[i][j]='s';
-}
-void undo_urd(char f[][row],int i, int j)
-{
-    f[i-2][j+2]='e';
-    f[i-1][j+1]='s';
-    f[i][j]='s';
-}
-void undo_l(char f[][row],int i, int j)
-{
-    f[i][j-2]='e';
-    f[i][j-1]='s';
-    f[i][j]='s';
-}
-void undo_r(char f[][row],int i, int j)
-{
-    f[i][j+2]='e';
-    f[i][j+1]='s';
-    f[i][j]='s';
-}
-void undo_dld(char f[][row],int i, int j)
-{
-    f[i+2][j-2]='e';
-    f[i+1][j-1]='s';
-    f[i][j]='s';
-}
-void undo_drd(char f[][row],int i, int j)
-{
-    f[i+2][j]='e';
-    f[i+1][j]='s';
-    f[i][j]='s';
-}
+
 /*Count no of "s" in field, Analyse locations and Determine whether ideal or not*/
 int is_ideal(char f[][row], int row)
 {
@@ -198,9 +162,9 @@ int solve(char f[][row], int row)
 		        if(uld)
 		        {
 		            char copy1[row][row];
-		            apply_uld(f,i,j);
-		            copy(copy1,f,row);
-		            undo_uld(f,i,j);
+			    copy(copy1,f,row);
+		            apply_uld(copy1,i,j);
+				
 		            if (solve(copy1,row))
 		            {
 		                print_field(copy1);
@@ -210,9 +174,9 @@ int solve(char f[][row], int row)
 		        if(urd)
 		        {
 		            char copy2[row][row];
-		            apply_urd(f,i,j);
 		            copy(copy2,f,row);
-		            undo_urd(f,i,j);
+		            apply_urd(copy2,i,j);
+
 		            if (solve(copy2,row))
 		            {
 		                print_field(copy2);
@@ -222,9 +186,9 @@ int solve(char f[][row], int row)
 		        if(l)
 		        {
 		            char copy3[row][row];
-		            apply_l(f,i,j);
-		            copy(copy3,f,row);
-		            undo_l(f,i,j);
+		            copy(copy3,f,row);				
+		            apply_l(copy3,i,j);
+
 		            if(solve(copy3,row))
 		            {
 		                print_field(copy3);
@@ -234,9 +198,9 @@ int solve(char f[][row], int row)
 		        if(r)
 		        {
 		            char copy4[row][row];
-		            apply_r(f,i,j);
 		            copy(copy4,f,row);
-		            undo_r(f,i,j);
+		            apply_r(copy4,i,j);
+
 		            if(solve(copy4,row))
 		            {
 		                print_field(copy4);
@@ -246,9 +210,9 @@ int solve(char f[][row], int row)
 		        if(dld)
 		        {
 		            char copy5[row][row];
-		            apply_dld(f,i,j);
 		            copy(copy5,f,row);
-		            undo_dld(f,i,j);
+		            apply_dld(copy5,i,j);
+				
 		            if(solve(copy5,row))
 		            {
 		                print_field(copy5);
@@ -258,9 +222,9 @@ int solve(char f[][row], int row)
 		        if(drd)
 		        {
 		            char copy6[row][row];
-		            apply_drd(f,i,j);
 		            copy(copy6,f,row);
-		            undo_drd(f,i,j);
+		            apply_drd(copy6,i,j);
+
 		            if(solve(copy6,row))
 		            {
 		                print_field(copy6);
